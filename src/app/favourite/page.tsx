@@ -78,20 +78,25 @@ function FavItem() {
     };
 
     fetchFavouriteItem();
-  }, []);
+  }, [api_url, router]);
 
   console.log("categories", favouriteitem);
   console.log("filteredCategories", filteredCategories);
 
   // Filter favouriteItem from categories
-  const filterCategories = () => {
-    const filtered = categories.filter((category) =>
-      favouriteitem?.some(
-        (fav) => fav.item_id.toString() === category.idCategory.toString()
-      )
-    );
-    setFilteredCategories(filtered);
-  };
+ const filterCategories = () => {
+   if (!favouriteitem || !Array.isArray(favouriteitem)) {
+     setFilteredCategories([]); 
+     return;
+   }
+   const filtered = categories.filter((category) =>
+     favouriteitem.some(
+       (fav) => fav?.item_id?.toString() === category?.idCategory?.toString()
+     )
+   );
+   setFilteredCategories(filtered);
+ };
+
 
   useEffect(() => {
     filterCategories();
