@@ -17,6 +17,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
@@ -45,7 +46,8 @@ const formSchema = z
   });
 
 export default function SingUpPage() {
-    const api_url = process.env.NEXT_PUBLIC_API_URL;
+  const api_url = process.env.NEXT_PUBLIC_API_URL;
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -66,6 +68,7 @@ export default function SingUpPage() {
             onClick: () => console.log("Done"),
           },
         });
+         router.push("home");
       } else {
         throw new Error("Failed to create User");
       }
