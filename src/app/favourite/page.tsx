@@ -75,7 +75,7 @@ function FavItem() {
     };
 
     fetchFavouriteItem();
-  }, [api_url, router]);
+  }, []);
 
   console.log("categories", favouriteitem);
   console.log("filteredCategories", filteredCategories);
