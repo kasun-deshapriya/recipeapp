@@ -68,9 +68,8 @@ function Categories() {
     try {
       const response = await axios.post(
         `${api_url}/add-to-favourite`,
-        { id, name },
-        {
-          withCredentials: true,
+        { id, name },{
+          withCredentials:true
         }
       );
 

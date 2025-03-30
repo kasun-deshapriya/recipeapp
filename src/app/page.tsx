@@ -1,11 +1,11 @@
 "use client";
 
-import LoginForm from "./login/page";
+import Categories from "./favourite/page";
 
 export default function Home() {
   return (
     <div>
-      <LoginForm />
+      <Categories />
     </div>
   );
 }

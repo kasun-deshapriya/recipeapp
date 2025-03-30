@@ -54,8 +54,8 @@ export default function SingUpPage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const response = await axios.post(`${api_url}/singup-user`, values,{
-        withCredentials: true
+      const response = await axios.post(`${api_url}/singup-user`, values, {
+        withCredentials: true,
       });
 
       if (response.status === 201 || response.status === 200) {

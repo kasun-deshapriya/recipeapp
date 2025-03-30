@@ -22,7 +22,8 @@ interface Category {
   strCategoryThumb: string;
 }
 
-function Categories() {
+function FavItem() {
+   const api_url = process.env.NEXT_PUBLIC_API_URL;
   const [categories, setCategories] = useState<Category[]>([]);
   const [favouriteitem, setFavouriteItem] = useState<Category[]>([]);
   const [filteredCategories, setFilteredCategories] = useState<Category[]>([]);
@@ -58,7 +59,7 @@ function Categories() {
     const fetchFavouriteItem = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/v1/favourites",
+          `${api_url}/favourites`,
           {
             credentials: "include",
           }
@@ -203,4 +204,4 @@ function Categories() {
   );
 }
 
-export default Categories;
+export default FavItem;
