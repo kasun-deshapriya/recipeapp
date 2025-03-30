@@ -1,11 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import LoginForm from "./login/page";
 
 export default function Home() {
   return (
-   <div>
-     <Button>add</Button>
-   </div>
+    <div>
+      <LoginForm />
+    </div>
   );
 }
