@@ -86,7 +86,7 @@ function FavItem() {
   // Filter favouriteItem from categories
   const filterCategories = () => {
     const filtered = categories.filter((category) =>
-      favouriteitem.some(
+      favouriteitem?.some(
         (fav) => fav.item_id.toString() === category.idCategory.toString()
       )
     );
