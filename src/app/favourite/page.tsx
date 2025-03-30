@@ -23,7 +23,7 @@ interface Category {
 }
 
 function FavItem() {
-   const api_url = process.env.NEXT_PUBLIC_API_URL;
+  const api_url = process.env.NEXT_PUBLIC_API_URL;
   const [categories, setCategories] = useState<Category[]>([]);
   const [favouriteitem, setFavouriteItem] = useState<Category[]>([]);
   const [filteredCategories, setFilteredCategories] = useState<Category[]>([]);
@@ -58,12 +58,9 @@ function FavItem() {
   useEffect(() => {
     const fetchFavouriteItem = async () => {
       try {
-        const response = await fetch(
-          `${api_url}/favourites`,
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${api_url}/favourites`, {
+          credentials: "include",
+        });
         if (!response.ok) {
           router.push("login");
         }
@@ -84,19 +81,16 @@ function FavItem() {
   console.log("filteredCategories", filteredCategories);
 
   // Filter favouriteItem from categories
- const filterCategories = () => {
-   if (!favouriteitem || !Array.isArray(favouriteitem)) {
-     setFilteredCategories([]); 
-     return;
-   }
-   const filtered = categories.filter((category) =>
-     favouriteitem.some(
-       (fav) => fav?.item_id?.toString() === category?.idCategory?.toString()
-     )
-   );
-   setFilteredCategories(filtered);
- };
-
+  const filterCategories = () => {
+    if (favouriteitem) {
+      const filtered = categories.filter((category) =>
+        favouriteitem.some(
+          (fav) => fav?.item_id?.toString() === category?.idCategory?.toString()
+        )
+      );
+      setFilteredCategories(filtered);
+    }
+  };
 
   useEffect(() => {
     filterCategories();
