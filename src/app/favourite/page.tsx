@@ -30,6 +30,7 @@ function FavItem() {
   const [favouriteitem, setFavouriteItem] = useState<Category[]>([]);
   const [filteredCategories, setFilteredCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deleteid, SetDelete] = useState(false);
   const [selectedTab, setSelectedTab] = useState<string>("All");
 
   const tabs = ["All", "Pork", "Beef", "Chicken", "Lamb", "Pasta"];
@@ -55,7 +56,7 @@ function FavItem() {
     };
 
     fetchCategories();
-  }, []);
+  }, [deleteid]);
 
   useEffect(() => {
     const fetchFavouriteItem = async () => {
@@ -77,7 +78,7 @@ function FavItem() {
     };
 
     fetchFavouriteItem();
-  }, []);
+  }, [categories, deleteid]);
 
   console.log("categories", favouriteitem);
   console.log("filteredCategories", filteredCategories);
@@ -108,7 +109,7 @@ function FavItem() {
 
   const deleteFavoriteItem = async (id : number) => {
     try {
-      const response = await axios.post(`${api_url}/delete-favorite/${id}`, {
+      const response = await axios.delete(`${api_url}/delete-favorite/${id}`, {
         withCredentials: true,
       });
 
@@ -121,9 +122,10 @@ function FavItem() {
              onClick: () => console.log("Done"),
            },
          }); 
+         SetDelete(true)
       } else {
          toast("Error In deleting", {
-           description: "Error Favorite item deleted successfully",
+           description: "Error Favorite item deleting",
            action: {
              label: "Done",
              onClick: () => console.log("Done"),
@@ -134,7 +136,7 @@ function FavItem() {
       }
     } catch (error) {
         toast("Error In deleting", {
-          description: "Error Favorite item deleted successfully",
+          description: "Error Favorite item deleting",
           action: {
             label: "Done",
             onClick: () => console.log("Done"),
