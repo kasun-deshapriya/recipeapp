@@ -69,10 +69,7 @@ export default function SingUpPage() {
           },
         });
         router.push("home");
-      } else if (
-        response.status === 200 &&
-        response.data?.message === "User already exists"
-      ) {
+      } else if (response.status === 200) {
         toast("User already exists", {
           description: "Please use a different email",
           action: {
