@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Logout from "../login/_component/logout";
 import Image from "next/image";
+import axios from "axios";
+import { toast } from "sonner";
 
 interface Category {
   idCategory: number;
@@ -104,6 +106,45 @@ function FavItem() {
           category.strCategory.toLowerCase().includes(selectedTab.toLowerCase())
         );
 
+  const deleteFavoriteItem = async (id : number) => {
+    try {
+      const response = await axios.post(`${api_url}/delete-favorite/${id}`, {
+        withCredentials: true,
+      });
+
+      if (response.status === 200) {
+        console.log("Favorite item deleted successfully:", response.data);
+         toast("Favorite item deleted", {
+           description: "Favorite item deleted successfully",
+           action: {
+             label: "Done",
+             onClick: () => console.log("Done"),
+           },
+         }); 
+      } else {
+         toast("Error In deleting", {
+           description: "Error Favorite item deleted successfully",
+           action: {
+             label: "Done",
+             onClick: () => console.log("Done"),
+           },
+         });
+        console.error("Failed to delete favorite item:", response.data);
+        return null;
+      }
+    } catch (error) {
+        toast("Error In deleting", {
+          description: "Error Favorite item deleted successfully",
+          action: {
+            label: "Done",
+            onClick: () => console.log("Done"),
+          },
+        });
+      console.error("Error deleting favorite item:", error);
+      return null;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -131,11 +172,11 @@ function FavItem() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Category Tabs */}
-        <div className="flex space-x-4 mb-8">
+        <div className="flex space-x-4 mb-8 flex-wrap p-5">
           {tabs.map((tab) => (
             <button
               key={tab}
-              className={`px-6 py-2 rounded-full transition-all ${
+              className={`px-6 py-2 rounded-full transition-all mt-2 ${
                 selectedTab === tab
                   ? "bg-pink-500 text-white"
                   : "bg-white text-pink-500 border border-pink-500"
@@ -168,7 +209,10 @@ function FavItem() {
                     <span className="text-sm text-gray-500">
                       {category.strCategory}
                     </span>
-                    <Heart className="h-4 w-4 text-red-400 fill-current" />
+                    <Heart
+                      className="h-4 w-4 text-red-400 fill-current"
+                      onClick={() => deleteFavoriteItem(category.idCategory)}
+                    />
                   </div>
                   <h3 className="text-sm font-medium text-gray-900">
                     {category.strCategory} Noodle Soup

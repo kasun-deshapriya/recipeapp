@@ -123,11 +123,11 @@ function Categories() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Category Tabs */}
-        <div className="flex space-x-4 mb-8">
+        <div className="flex space-x-4 mb-8 flex-wrap p-5 ">
           {tabs.map((tab) => (
             <button
               key={tab}
-              className={`px-6 py-2 rounded-full transition-all ${
+              className={`px-6 py-2 rounded-full transition-all mt-2 ${
                 selectedTab === tab
                   ? "bg-pink-500 text-white"
                   : "bg-white text-pink-500 border border-pink-500"

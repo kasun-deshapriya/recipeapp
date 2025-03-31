@@ -60,15 +60,26 @@ export default function SingUpPage() {
         withCredentials: true,
       });
 
-      if (response.status === 201 || response.status === 200) {
+      if (response.status === 201) {
         toast("User has been created", {
-          description: "User created sucessfull",
+          description: "User created successfully",
           action: {
             label: "Done",
             onClick: () => console.log("Done"),
           },
         });
-         router.push("home");
+        router.push("home");
+      } else if (
+        response.status === 200 &&
+        response.data?.message === "User already exists"
+      ) {
+        toast("User already exists", {
+          description: "Please use a different email",
+          action: {
+            label: "Login",
+            onClick: () => router.push("/login"),
+          },
+        });
       } else {
         throw new Error("Failed to create User");
       }
@@ -87,8 +98,8 @@ export default function SingUpPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-xl w-[50%] p-20">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center lg:p-4">
+      <div className="bg-white rounded-2xl shadow-xl lg:w-[50%] md:w-[80%] sm:w-[90%] lg:p-20 p-8">
         <div className="flex justify-center mb-8">
           <div className="flex items-center justify-center mb-8">
             <span className="text-4xl font-bold text-[#FF4E79]">co</span>
@@ -101,7 +112,7 @@ export default function SingUpPage() {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-6">
               <FormField
                 control={form.control}
                 name="first_name"
